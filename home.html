@@ -73,7 +73,7 @@
     })
         .then(response => response.json())
         .then(data => {
-            if (data === '1') {
+            if (data === 1) {
                 // Si l'API renvoie 1, le serveur est allumé
                 document.getElementById('status').innerHTML = "<span class='text-success'>Serveur en fonctionnement</span>";
             } else {
@@ -90,7 +90,14 @@
         document.getElementById('status').innerHTML = '<div class="d-flex"><p>Chargement</p><div class="spinner-border text-primary mx-3" role="status"><span class="visually-hidden">Loading...</span></div></div>';
         WakeOnLan()
         // Effectuer l'appel à l'API
-        fetch('https://2.11.142.245:3000/server/status')
+        fetch('https://cloodhome.servehttp.com:3000/server/status', {
+        method: 'GET',
+        mode: 'cors', // Autorise les requêtes cross-origin
+        headers: {
+            'Content-Type': 'application/json',
+            // Ajoutez d'autres en-têtes si nécessaire
+        },
+    })
             .then(response => response.json())
             .then(data => {
                 if (data.status === 1) {
