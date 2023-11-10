@@ -73,6 +73,7 @@
     })
         .then(response => response.json())
         .then(data => {
+            print(data.status)
             if (data.status === '1') {
                 // Si l'API renvoie 1, le serveur est allumé
                 document.getElementById('status').innerHTML = "<span class='text-success'>Serveur en fonctionnement</span>";
