@@ -61,7 +61,7 @@
         document.getElementById('status').innerHTML = "<span class='text-danger'>Serveur éteint</span>";
 
         // Effectuer l'appel à l'API pour obtenir le statut
-        fetch('http://2.11.142.245:3000/server/status')
+        fetch('https://2.11.142.245:3000/server/status')
             .then(response => response.json())
             .then(data => {
                 if (data.status === 1) {
