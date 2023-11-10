@@ -77,26 +77,34 @@
             });
     };
 
-    function startWakeOnLan() {
-        document.getElementById('status').innerHTML = '<div class="d-flex"><p>Chargement</p><div class="spinner-border text-primary mx-3" role="status"><span class="visually-hidden">Loading...</span></div></div>';
-        WakeOnLan()
-        // Effectuer l'appel à l'API
-        fetch('https://2.11.142.245:3000/server/status')
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 1) {
-                    // Si l'API renvoie 1, le serveur est allumé
-                    document.getElementById('status').innerHTML = "<span class='text-success'>Serveur en fonctionnement</span>";
-                } else {
-                    // Si l'API renvoie autre chose que 1, le serveur est éteint
-                    document.getElementById('status').innerHTML = "<span class='text-danger'>Serveur éteint</span>";
-                }
-            })
-            .catch(error => {
-                console.error('Erreur :', error);
+    window.onload = function () {
+    // Afficher l'icône de chargement
+    document.getElementById('status').innerHTML = "<span class='text-danger'>Serveur éteint</span>";
+
+    // Effectuer l'appel à l'API pour obtenir le statut
+    fetch('https://2.11.142.245:3000/server/status', {
+        method: 'GET',
+        mode: 'cors', // Autorise les requêtes cross-origin
+        headers: {
+            'Content-Type': 'application/json',
+            // Ajoutez d'autres en-têtes si nécessaire
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === '1') {
+                // Si l'API renvoie 1, le serveur est allumé
+                document.getElementById('status').innerHTML = "<span class='text-success'>Serveur en fonctionnement</span>";
+            } else {
                 document.getElementById('status').innerHTML = "<span class='text-danger'>Serveur éteint</span>";
-            });
-    }
+            }
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+            document.getElementById('status').innerHTML = "<span class='text-danger'>Serveur éteint</span>";
+        });
+};
+
 
 
     function WakeOnLan() {
